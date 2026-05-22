@@ -1,0 +1,153 @@
+import processing.serial.*;
+
+Serial porta;
+
+String dados = "";
+int angulo = 0;
+int distancia = 0;
+
+void setup() {
+  size(1000, 700);
+
+  println("Portas encontradas:");
+  printArray(Serial.list());
+
+  String portaArduino = "";
+
+  for (int i = 0; i < Serial.list().length; i++) {
+    String nomePorta = Serial.list()[i];
+
+    if (nomePorta.indexOf("COM") >= 0) {
+      portaArduino = nomePorta;
+    }
+  }
+
+  if (portaArduino.equals("")) {
+    println("Nenhuma porta COM encontrada!");
+    exit();
+  } else {
+    println("Conectando automaticamente na porta: " + portaArduino);
+    porta = new Serial(this, portaArduino, 9600);
+    porta.bufferUntil('\n');
+  }
+}
+
+void draw() {
+  fill(0, 6);
+  noStroke();
+  rect(0, 0, width, height);
+
+  desenharRadar();
+  desenharLinha();
+  desenharObjeto();
+  mostrarTexto();
+}
+
+void serialEvent(Serial porta) {
+  dados = porta.readStringUntil('\n');
+
+  if (dados != null) {
+    dados = trim(dados);
+
+    String[] valores = split(dados, ',');
+
+    if (valores.length == 2) {
+      angulo = int(valores[0]);
+      distancia = int(valores[1]);
+    }
+  }
+}
+
+void desenharRadar() {
+  pushMatrix();
+
+  translate(width/2, height-50);
+
+  stroke(0, 255, 0);
+  noFill();
+  strokeWeight(1);
+
+  arc(0, 0, 800, 800, PI, TWO_PI);
+  arc(0, 0, 600, 600, PI, TWO_PI);
+  arc(0, 0, 400, 400, PI, TWO_PI);
+  arc(0, 0, 200, 200, PI, TWO_PI);
+
+  line(-400, 0, 400, 0);
+
+  popMatrix();
+}
+
+void desenharLinha() {
+  pushMatrix();
+
+  translate(width/2, height-50);
+
+  strokeWeight(2);
+
+  float alcanceMaximo = 400;
+  float distanciaTela = distancia * 8; // escala para 50 cm
+
+  if (distancia > 0 && distancia < 50) {
+
+    stroke(0, 255, 0);
+    line(
+      0,
+      0,
+      distanciaTela * cos(radians(angulo)),
+      -distanciaTela * sin(radians(angulo))
+    );
+
+    stroke(255, 0, 0);
+    line(
+      distanciaTela * cos(radians(angulo)),
+      -distanciaTela * sin(radians(angulo)),
+      alcanceMaximo * cos(radians(angulo)),
+      -alcanceMaximo * sin(radians(angulo))
+    );
+
+  } else {
+
+    stroke(0, 255, 0);
+    line(
+      0,
+      0,
+      alcanceMaximo * cos(radians(angulo)),
+      -alcanceMaximo * sin(radians(angulo))
+    );
+  }
+
+  popMatrix();
+}
+
+void desenharObjeto() {
+  pushMatrix();
+
+  translate(width/2, height-50);
+
+  if (distancia > 0 && distancia < 50) {
+    fill(255, 0, 0);
+    noStroke();
+
+    ellipse(
+      distancia * 8 * cos(radians(angulo)),
+      -distancia * 8 * sin(radians(angulo)),
+      15,
+      15
+    );
+  }
+
+  popMatrix();
+}
+
+void mostrarTexto() {
+  fill(0, 255, 0);
+  textSize(20);
+
+  text("ANGULO: " + angulo, 50, 50);
+  text("DISTANCIA: " + distancia + " cm", 50, 80);
+  text("ESCALA: 0 a 50 cm", 50, 110);
+
+  if (porta != null) {
+    text("PORTA: " + porta.port.getPortName(), 50, 140);
+  }
+}
