@@ -1,5 +1,5 @@
 ```markdown id="d8sk3f"
-# 🔍 Sistema de Varredura Ultrassônica com Arduino
+#🔍 Sistema de Varredura Ultrassônica com Arduino
 
 Projeto desenvolvido utilizando Arduino Uno, sensor ultrassônico HC-SR04, servo motor, LEDs e buzzer para criar um sistema de varredura capaz de detectar obstáculos em diferentes direções.
 
@@ -7,11 +7,11 @@ O funcionamento do projeto simula o comportamento básico de radares e sensores 
 
 ---
 
-# 🧠 Como o Sistema Funciona
+#🧠 Como o Sistema Funciona
 
 O sensor ultrassônico HC-SR04 trabalha emitindo ondas sonoras em alta frequência que não podem ser ouvidas pelo ser humano.
 
-## 📡 Etapas do funcionamento:
+##📡 Etapas do funcionamento:
 
 1. O Arduino envia um pulso para o pino **Trigger** do sensor.
 2. O sensor emite uma onda ultrassônica.
@@ -34,7 +34,7 @@ A divisão por 2 acontece porque o sinal percorre o caminho de ida e volta.
 
 ---
 
-# 🔄 Sistema de Varredura
+#🔄 Sistema de Varredura
 
 O servo motor movimenta o sensor entre diferentes ângulos (0° até 180°), permitindo mapear o ambiente ao redor.
 
@@ -48,7 +48,7 @@ Esse comportamento transforma o projeto em um pequeno sistema inteligente de mon
 
 ---
 
-# 🛠️ Componentes Utilizados
+#🛠️ Componentes Utilizados
 
 - Arduino Uno
 - Sensor Ultrassônico HC-SR04
@@ -61,13 +61,13 @@ Esse comportamento transforma o projeto em um pequeno sistema inteligente de mon
 
 ---
 
-# 🔌 Esquema do Circuito
+#🔌 Esquema do Circuito
 
 ![Sistema de Varredura Arduino](./imagem.png)
 
 ---
 
-# 💻 Tecnologias Utilizadas
+#💻 Tecnologias Utilizadas
 
 - Arduino IDE
 - Linguagem C/C++
@@ -76,7 +76,7 @@ Esse comportamento transforma o projeto em um pequeno sistema inteligente de mon
 
 ---
 
-# 🎯 Objetivos do Projeto
+#🎯 Objetivos do Projeto
 
 Este projeto foi desenvolvido para aprofundar conhecimentos em:
 
@@ -90,7 +90,7 @@ Este projeto foi desenvolvido para aprofundar conhecimentos em:
 
 ---
 
-# 🚀 Possíveis Aplicações
+#🚀 Possíveis Aplicações
 
 - Sistemas de segurança
 - Robótica
@@ -101,7 +101,7 @@ Este projeto foi desenvolvido para aprofundar conhecimentos em:
 
 ---
 
-# 📚 Conceitos Estudados
+#📚 Conceitos Estudados
 
 - Emissão e recepção de ondas ultrassônicas
 - Cálculo de distância por tempo de resposta
